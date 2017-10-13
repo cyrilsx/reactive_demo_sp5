@@ -1,6 +1,7 @@
 package ch.collen.reactive.ReactiveDemo5;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Objects;
 
@@ -8,6 +9,7 @@ import java.util.Objects;
  * @author COC
  * @since 12.10.2017
  */
+@Document
 public class Movie {
 
     @Id
@@ -55,5 +57,13 @@ public class Movie {
         final Movie other = (Movie) obj;
         return Objects.equals(this.id, other.id)
                 && Objects.equals(this.movieName, other.movieName);
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id='" + id + '\'' +
+                ", movieName='" + movieName + '\'' +
+                '}';
     }
 }
