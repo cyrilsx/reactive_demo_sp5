@@ -4,6 +4,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.reactive.function.server.RequestPredicates;
+import org.springframework.web.reactive.function.server.RouterFunction;
+import org.springframework.web.reactive.function.server.RouterFunctions;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -25,6 +28,13 @@ public class ReactiveDemo5Application {
                                         .map(s -> new Movie(UUID.randomUUID().toString(), s))
                                         .collect(Collectors.toList())
                         ).subscribe(System.out::println));
+    }
+
+    @Bean
+    public RouterFunction<?> routes(FluxMovieService service) {
+        return RouterFunctions.route(
+                RequestPredicates.GET("/movies"), req -> req.bodyToFlux(Movie.class)) //FIXME to finish
+        )
     }
 
 }
