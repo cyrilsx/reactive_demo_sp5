@@ -25,7 +25,8 @@ public class RestMovieService {
 
     @GetMapping(value = "{id}/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public Flux<MovieEvent> events(@PathVariable("id") String id) {
-        //TODO
+       return fluxMovieService.findById(id)
+               .flatMapMany(fluxMovieService::streamEvents);
     }
 
     @GetMapping
